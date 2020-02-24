@@ -55,15 +55,18 @@
 #define deadbandA 30
 #define deadbandB 30
 #define pushButton 2
+#define TURN_TIME 300
+#define GAIN .87
 
 int8_t left_read, right_read;
 int left_value, right_value, pushValue;
 int systemState;
-SoftwareSerial BT(4, 6); // Arduino RX, TX (BT Dout, Din)
+SoftwareSerial BT(4, 5); // Arduino RX, TX (BT Dout, Din)
 int setA = 0;
 int setB = 0;
 int tempA = 0;
 int tempB = 0;
+byte cmd;
 void setup()
 {
   // Initialize BT Software Serial port. Make sure the baud
@@ -85,72 +88,91 @@ void loop()
   // In loop() we continously check to see if a command has been
   //  received.
   if (BT.available()) {
-    switch (BT.read()) {
-      case 'p':
-        systemState = !systemState;
-        if (systemState) {
-          BT.print("Power on");
-        }
-        else {
-          BT.print("Power off");
-          setA = 0;
-          setB = 0;
-        }
-        break;
-        if (systemState) {
-        case 's':
-          setA = 100;
-          setB = 100;
-          BT.print("Slow");
-          break;
-        case 'f':
-          setA = 255;
-          setB = 255;
-          BT.print("Fast");
-          break;
-        case 'r':
-          if (systemState) {
-            motor(A, -255);
-            motor(B, 255);
-            BT.print("Right Turn");
-            delay(2500);
-          }
-          break;
-        case 'l':
-          if (systemState) {
-            motor(A, 255);
-            motor(B, -255);
-            BT.print("Left Turn");
-            delay(2500);
-          }
-          break;
-        }
+    cmd = BT.read();
+  }
+  if (cmd == 'p') {
+    systemState = !systemState;
+    if (systemState) {
+      BT.print("Power on");
+    }
+    else {
+      BT.print("Power off");
+      setA = 0;
+      setB = 0;
+      Stop();
     }
   }
-  motor(A, setA);
-  motor(B, setB);
-
-
+  if (systemState && cmd != 'p') {
+    switch (cmd) {
+      case 's':
+        setA = 100;
+        setB = 100;
+        Forward(100);
+        BT.print("Slow");
+        break;
+      case 'f':
+        setA = 255;
+        setB = 255;
+        Forward(255);
+        BT.print("Fast");
+        break;
+      case 'r':
+        Turn(-1, setA, setB);
+        BT.print("Right Turn");
+        break;
+      case 'l':
+        Turn(1, setA, setB);
+        BT.print("Left Turn");
+        break;
+    }
+  }
   delay(100);
 }
 
+///////////////////////////////////
+void Turn(int dir, int a, int b) {
+  motor(A, -dir * 255);
+  motor(B, dir * 255);
+  delay(TURN_TIME);
+  motor(A, a);
+  motor(B, b);
+}
+///////////////////////////////////
+void Backward(int s) {
+  motor(A, -s);
+  motor(B, -s*GAIN);
+}
+///////////////////////////////////
+void Forward(int s) {
+  motor(A, s);
+  motor(B, s*GAIN);
+}
+///////////////////////////////////
+void Stop() {
+  motor(A, 0);
+  motor(B, 0);
+}
 ///////////////////////////////////
 void motor(int m, int pwm) {
   int dirPin, pwmPin, deadband;
   switch (m) {
     case A:
-      dirPin = dirA;
-      pwmPin = pwmA;
-      deadband = deadbandA;
+      digitalWrite(dirA, (pwm >= 0));
+      if (abs(pwm) >=  deadband) {
+        analogWrite(pwmA, abs(pwm));
+      } else {
+        analogWrite(pwmA, 0);
+      }
+      break;
     case B:
-      dirPin = dirB;
-      pwmPin = pwmB;
-      deadband = deadbandB;
+      pwm *= GAIN;
+      digitalWrite(dirB, (pwm >= 0));
+      if (abs(pwm) >=  deadband) {
+        analogWrite(pwmB, abs(pwm));
+      } else {
+        analogWrite(pwmB, 0);
+      }
+      break;
   }
-  digitalWrite(dirPin, (pwm >= 0));
-  if (abs(pwm) >=  deadband) {
-    analogWrite(pwmPin, abs(pwm));
-  } else {
-    analogWrite(pwmPin, deadband);
-  }
+
 }
