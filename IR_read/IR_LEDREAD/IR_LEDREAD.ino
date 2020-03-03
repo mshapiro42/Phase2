@@ -30,6 +30,9 @@ QTRSensors qtr;
 
 const uint8_t SensorCount = 6;
 uint16_t sensorValues[SensorCount];
+// using a byte and a for loop to light indicators is a shorter code
+byte lights = 0;
+uint8_t lightPins = [13, 12, 11, 10, 8, 7];
 
 void setup()
 {
@@ -94,102 +97,117 @@ void loop()
   Serial.println(position);
   if (position < 250)
   {
-    digitalWrite(7, HIGH);
-    digitalWrite(8, LOW);
-    digitalWrite(10, LOW);
-    digitalWrite(11, LOW);
-    digitalWrite(12, LOW);
-    digitalWrite(13, LOW);
+    lights = 0b000001;
+//    digitalWrite(7, HIGH);
+//    digitalWrite(8, LOW);
+//    digitalWrite(10, LOW);
+//    digitalWrite(11, LOW);
+//    digitalWrite(12, LOW);
+//    digitalWrite(13, LOW);
   }
   if (position > 250 && position < 750)
   {
-    digitalWrite(7, HIGH);
-    digitalWrite(8, HIGH);
-    digitalWrite(10, LOW);
-    digitalWrite(11, LOW);
-    digitalWrite(12, LOW);
-    digitalWrite(13, LOW);
+    lights = 0b000011;
+//    digitalWrite(7, HIGH);
+//    digitalWrite(8, HIGH);
+//    digitalWrite(10, LOW);
+//    digitalWrite(11, LOW);
+//    digitalWrite(12, LOW);
+//    digitalWrite(13, LOW);
   }
   if (position > 750 && position < 1250)
   {
-    digitalWrite(8, HIGH);
-    digitalWrite(7, LOW);
-    digitalWrite(10, LOW);
-    digitalWrite(11, LOW);
-    digitalWrite(12, LOW);
-    digitalWrite(13, LOW);
+    lights = 0b000010;
+//    digitalWrite(8, HIGH);
+//    digitalWrite(7, LOW);
+//    digitalWrite(10, LOW);
+//    digitalWrite(11, LOW);
+//    digitalWrite(12, LOW);
+//    digitalWrite(13, LOW);
   }
   if (position > 1250 && position < 1750)
   {
-    digitalWrite(10, HIGH);
-    digitalWrite(8, HIGH);
-    digitalWrite(7, LOW);
-    digitalWrite(11, LOW);
-    digitalWrite(12, LOW);
-    digitalWrite(13, LOW);
+    lights = 0b000110;
+//    digitalWrite(10, HIGH);
+//    digitalWrite(8, HIGH);
+//    digitalWrite(7, LOW);
+//    digitalWrite(11, LOW);
+//    digitalWrite(12, LOW);
+//    digitalWrite(13, LOW);
   }
   if (position > 1750 && position < 2250)
   {
-    digitalWrite(10, HIGH);
-    digitalWrite(8, LOW);
-    digitalWrite(7, LOW);
-    digitalWrite(11, LOW);
-    digitalWrite(12, LOW);
-    digitalWrite(13, LOW);
+    lights = 0b000100;
+//    digitalWrite(10, HIGH);
+//    digitalWrite(8, LOW);
+//    digitalWrite(7, LOW);
+//    digitalWrite(11, LOW);
+//    digitalWrite(12, LOW);
+//    digitalWrite(13, LOW);
   }
   if (position > 2250 && position < 2750)
   {
-    digitalWrite(10, HIGH);
-    digitalWrite(11, HIGH);
-    digitalWrite(8, LOW);
-    digitalWrite(7, LOW);
-    digitalWrite(12, LOW);
-    digitalWrite(13, LOW);
+    lights = 0b001100;
+//    digitalWrite(10, HIGH);
+//    digitalWrite(11, HIGH);
+//    digitalWrite(8, LOW);
+//    digitalWrite(7, LOW);
+//    digitalWrite(12, LOW);
+//    digitalWrite(13, LOW);
   }
   if (position > 2750 && position < 3250)
   {
-    digitalWrite(11, HIGH);
-    digitalWrite(8, LOW);
-    digitalWrite(10, LOW);
-    digitalWrite(7, LOW);
-    digitalWrite(12, LOW);
-    digitalWrite(13, LOW);
+    lights = 0b001000;
+//    digitalWrite(11, HIGH);
+//    digitalWrite(8, LOW);
+//    digitalWrite(10, LOW);
+//    digitalWrite(7, LOW);
+//    digitalWrite(12, LOW);
+//    digitalWrite(13, LOW);
   }
   if (position > 3250 && position < 3750)
   {
-    digitalWrite(11, HIGH);
-    digitalWrite(12, HIGH);
-    digitalWrite(8, LOW);
-    digitalWrite(10, LOW);
-    digitalWrite(7, LOW);
-    digitalWrite(13, LOW);
+    lights = 0b011000;
+//    digitalWrite(11, HIGH);
+//    digitalWrite(12, HIGH);
+//    digitalWrite(8, LOW);
+//    digitalWrite(10, LOW);
+//    digitalWrite(7, LOW);
+//    digitalWrite(13, LOW);
   }
   if (position > 3750 && position < 4250)
   {
-    digitalWrite(12, HIGH);
-    digitalWrite(8, LOW);
-    digitalWrite(10, LOW);
-    digitalWrite(11, LOW);
-    digitalWrite(7, LOW);
-    digitalWrite(13, LOW);
+    lights = 0b010000;
+//    digitalWrite(12, HIGH);
+//    digitalWrite(8, LOW);
+//    digitalWrite(10, LOW);
+//    digitalWrite(11, LOW);
+//    digitalWrite(7, LOW);
+//    digitalWrite(13, LOW);
   }
   if (position > 4250 && position < 4750)
   {
-    digitalWrite(12, HIGH);
-    digitalWrite(13, HIGH);
-    digitalWrite(8, LOW);
-    digitalWrite(10, LOW);
-    digitalWrite(11, LOW);
-    digitalWrite(7, LOW);
+    lights = 0b110000;
+//    digitalWrite(12, HIGH);
+//    digitalWrite(13, HIGH);
+//    digitalWrite(8, LOW);
+//    digitalWrite(10, LOW);
+//    digitalWrite(11, LOW);
+//    digitalWrite(7, LOW);
   }
   if (position > 4750)
   {
-    digitalWrite(13, HIGH);
-    digitalWrite(8, LOW);
-    digitalWrite(10, LOW);
-    digitalWrite(11, LOW);
-    digitalWrite(12, LOW);
-    digitalWrite(7, LOW);
+    lights = 0b100000;
+//    digitalWrite(13, HIGH);
+//    digitalWrite(8, LOW);
+//    digitalWrite(10, LOW);
+//    digitalWrite(11, LOW);
+//    digitalWrite(12, LOW);
+//    digitalWrite(7, LOW);
+  }
+  for (int i = 0; i < 6; i++){
+    //bits of a byte are read right to left, 5-i selects correct bit
+    digitalWrite(lightPins[i],bitRead(lights,5-i)); 
   }
   
   delay(250);
