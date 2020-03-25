@@ -1,0 +1,8 @@
+Partlist exported from C:/Users/Megan Shapiro/Documents/EAGLE/Pink Requirement/PinkReq.sch at 3/24/2020 6:10 PM
+
+Qty Value                                Device                               Package                     Parts      Description                                                                                                     SF_SKU   
+1                                        CONN_025MM                           SCREWTERMINAL-5MM-2         J1         Multi connection point. Often used as Generic Header-pin footprint for 0.1 inch spaced/style header connections PRT-08432
+3                                        CONN_06FEMALE_LOCK                   1X06_FEMALE_LOCK.010        J4, J5, J6 Multi connection point. Often used as Generic Header-pin footprint for 0.1 inch spaced/style header connections          
+1                                        CONN_09LOCK                          1X09_LOCK                   J2         Multi connection point. Often used as Generic Header-pin footprint for 0.1 inch spaced/style header connections          
+1                                        CONN_12LOCK                          1X12_LOCK                   J3         Multi connection point. Often used as Generic Header-pin footprint for 0.1 inch spaced/style header connections          
+1   ARDUINO_UNO_R3_SHIELD_ICSP-NO_LABELS ARDUINO_UNO_R3_SHIELD_ICSP-NO_LABELS UNO_R3_SHIELD_ICSP_NOLABELS B1         Arduino R3 Shield Footprint with ICSP Header                                                                             
