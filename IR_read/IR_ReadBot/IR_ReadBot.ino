@@ -9,6 +9,8 @@ QTRSensors qtr;
 //float getDistance();
 void rightMotor(int);
 void leftMotor(int);
+int steerRight(int, uint16_t);
+int steerLeft(int, uint16_t);
 
 const uint8_t SensorCount = 6;
 uint16_t sensorValues[SensorCount];
@@ -33,11 +35,10 @@ int switchPin = 7;             //switch to turn the robot on and off
 
 //float distance = 0;            //variable to store the distance measured by the distance sensor
 
-int rightMP;               //variable for motor speed
-int leftMP; 
-int mP = 255; 
-int rMP = round((2/3)*mP); 
-int srMP = round((1/3)*mP);             
+int rightMP = 0;               //variable for motor speed
+int leftMP = 0; 
+int mP = 0; 
+int Rec = 0;                    // variable for bluetooth communication            
 
 void setup()
 {
@@ -52,6 +53,7 @@ void setup()
   //pinMode(trigPin, OUTPUT);       //this pin will send ultrasonic pulses out from the distance sensor
   //pinMode(echoPin, INPUT);        //this pin will sense when the pulses reflect back to the distance sensor
 
+// Switch needs to be used when I'm using serial with computer instead of Bluetooth to read/debug IR sensor code
   pinMode(switchPin, INPUT_PULLUP);   //set this as a pullup to sense whether the switch is flipped
 
 
@@ -78,7 +80,7 @@ for (uint16_t i = 0; i < 400; i++)
 
   // print the calibration minimum values measured when emitters were on
   Serial.begin(9600);
-  for (uint8_t i = 0; i < SensorCount; i++)
+  /*for (uint8_t i = 0; i < SensorCount; i++)
   {
     Serial.print(qtr.calibrationOn.minimum[i]);
     Serial.print(' ');
@@ -92,84 +94,112 @@ for (uint16_t i = 0; i < 400; i++)
     Serial.print(' ');
   }
   Serial.println();
-  Serial.println();
+  Serial.println();*/
   delay(1000);
   
 }
 
 void loop()
 {
-  //DETECT THE DISTANCE READ BY THE DISTANCE SENSOR
-//  distance = getDistance();
-//
-  if(digitalRead(switchPin) == LOW){  //if the on switch is flipped
-//
-//    if(distance < 10){                //if an object is detected
-//
-//      //stop for a moment
-//      rightMotor(0);
-//      leftMotor(0);
-//    }else{                         //if no obstacle is detected drive forward
-//
-      rightMotor(-rightMP);
-      leftMotor(leftMP);
-//    }
-  } else{                         //if the switch is off then stop
-
-      //stop the motors
-      rightMotor(0);
-      leftMotor(0);
+  if (Serial.available()>0)
+  {
+    Rec = Serial.read();
+    if(Rec == 's')
+    {
+      mP = 0;
+    }
+    if(Rec == 'u')
+    {
+      mP += 51;
+    }
+    if(Rec == 'd')
+    {
+      mP -= 51;
+    }
+    //uint16_t position = qtr.readLineBlack(sensorValues);
+    //rightMP = steerRight(mP,position);
+    //leftMP = steerLeft(mP,position);
+    rightMP = mP; // This is only for testing bluetooth without using IR sensor, with IR sensor above two lines should be used
+    leftMP = mP;
+    rightMotor(-rightMP);
+    leftMotor(leftMP);
   }
+    
+  // Distance code below has been dismantled a bit, needs to be integrated with above when ready
+  //DETECT THE DISTANCE READ BY THE DISTANCE SENSOR
+  //  distance = getDistance();
+  //                       
+  //if the switch is off then stop (this isn't necessary with bluetooth controlling stopping)
+  //stop the motors
+  //DETECT THE DISTANCE READ BY THE DISTANCE SENSOR
+  //  distance = getDistance();
+  //if the on switch is flipped (this isn't necessary with bluetooth controlling going)
+  //
+  //    if(distance < 10){                //if an object is detected
+  //
+  //      //stop for a moment
+  //      rightMotor(0);
+  //      leftMotor(0);
+  //    }else{                         //if no obstacle is detected drive forward
+  //
+  //      rightMotor(-rightMP);
+  //      leftMotor(leftMP);
+  //    }
   // read calibrated sensor values and obtain a measure of the line position
   // from 0 to 5000 (for a white line, use readLineWhite() instead)
-  uint16_t position = qtr.readLineBlack(sensorValues);
 
-  for (uint8_t i = 0; i < SensorCount; i++)
+// Below is for debugging IR sensor
+  /*for (uint8_t i = 0; i < SensorCount; i++)
   {
     Serial.print(sensorValues[i]);
     Serial.print('\t');
   }
-  Serial.println(position);
-  
+  Serial.println(position);*/
+}
+
+/**********************************************************************************/
+int steerRight(int mP, uint16_t position)
+{
   if (position < 1400)
   {
-//    rightMotor(0);
-//    leftMotor(motorPower);
     rightMP = 0;
-    leftMP = mP;
   }
   if (position > 1400 && position < 1800)
   {
-    rightMP = srMP;
-    leftMP = mP;
+    rightMP = round((1/3)*mP); 
   }
   if (position > 1800 && position < 2200)
   {
-    rightMP = rMP;
-    leftMP = mP;
+    rightMP = round((1/3)*mP);
   }
-  if (position > 2200 && position < 2400);
+  if (position > 2200)
   {
     rightMP = mP;
+  }
+  return rightMP;
+}
+
+/*********************************************************************************/
+int steerLeft(int Mp, uint16_t position)
+{
+  if (position  < 2400)
+  {
     leftMP = mP;
   }
   if (position > 2400 && position < 2850)
   {
-    rightMP = mP;
-    leftMP = rMP;
+    leftMP = round((1/3)*mP);;
   }
   if (position > 2850 && position < 3300)
   {
-    rightMP = mP;
-    leftMP = srMP;
+    leftMP = round((1/3)*mP); 
   }
   if (position > 3300)
   {
-    rightMP = mP;
     leftMP = 0;
   }
+  return leftMP;
 }
-
 
 /********************************************************************************/
 void rightMotor(int motorSpeed)                       //function for driving the right motor
