@@ -31,8 +31,8 @@ const int BIN1 = 8;           //control pin 1 on the motor driver for the left m
 
 
 //distance variables
-const int trigPin = 6;
-const int echoPin = 5;
+const int trigPin = 4;
+const int echoPin = 3;
 
 float distance = 0;            //variable to store the distance measured by the distance sensor
 
@@ -109,10 +109,12 @@ void loop()
   if(distance < 10)
   {
     mP = 0;
+    digitalWrite(13, HIGH);
   }
   else
   {
     mP = mPdes;
+    digitalWrite(13, LOW);
   }
 
   // Check for message from user
@@ -155,16 +157,24 @@ void loop()
   int error = position - 2500;
   int speed = KP*error + KD*(error - lastLineErr);
   lastLineErr = error;
-  if (speed > 255)
+  int leftMP = mPdes + speed;
+  int rightMP = mPdes - speed;
+  if (leftMP > 255)
   {
-    speed = 255;
+    leftMP = 255;
   }
-  else if (speed < 0)
+  if (rightMP > 255)
   {
-    speed = 0;
+    rightMP = 255;
   }
-  int leftMP = mP + speed;
-  int rightMP = mP - speed;
+  if (leftMP < -255)
+  {
+    leftMP = -255;
+  }
+  if (rightMP < -255)
+  {
+    rightMP = -255;
+  }
     
   //Apply action to motors
   rightMotor(-rightMP);
