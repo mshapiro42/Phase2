@@ -5953,13 +5953,13 @@ This footprint was designed to help hold the alignment of a through-hole compone
 </classes>
 <parts>
 <part name="B1" library="SparkFun-Boards" library_urn="urn:adsk.eagle:library:509" deviceset="ARDUINO_UNO_R3_SHIELD_ICSP" device="-NO_LABELS" package3d_urn="urn:adsk.eagle:package:37336/1"/>
-<part name="J2" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" deviceset="CONN_09" device="LOCK" package3d_urn="urn:adsk.eagle:package:38154/1"/>
-<part name="J3" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" deviceset="CONN_12" device="LOCK" package3d_urn="urn:adsk.eagle:package:38171/1"/>
-<part name="J4" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" deviceset="CONN_06" device="FEMALE_LOCK" package3d_urn="urn:adsk.eagle:package:38124/1"/>
-<part name="J5" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" deviceset="CONN_06" device="FEMALE_LOCK" package3d_urn="urn:adsk.eagle:package:38124/1"/>
-<part name="J6" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" deviceset="CONN_06" device="FEMALE_LOCK" package3d_urn="urn:adsk.eagle:package:38124/1"/>
+<part name="IR_ARRAY" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" deviceset="CONN_09" device="LOCK" package3d_urn="urn:adsk.eagle:package:38154/1"/>
+<part name="MOTOR_CONTROLLER" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" deviceset="CONN_12" device="LOCK" package3d_urn="urn:adsk.eagle:package:38171/1"/>
+<part name="BLUETOOTH" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" deviceset="CONN_06" device="FEMALE_LOCK" package3d_urn="urn:adsk.eagle:package:38124/1"/>
+<part name="MOTOR_0" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" deviceset="CONN_06" device="FEMALE_LOCK" package3d_urn="urn:adsk.eagle:package:38124/1"/>
+<part name="MOTOR_1" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" deviceset="CONN_06" device="FEMALE_LOCK" package3d_urn="urn:adsk.eagle:package:38124/1"/>
 <part name="J1" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" deviceset="CONN_02" device="5MM" package3d_urn="urn:adsk.eagle:package:38044/1"/>
-<part name="J7" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" deviceset="CONN_04" device="LOCK" package3d_urn="urn:adsk.eagle:package:38089/1"/>
+<part name="DIST" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" deviceset="CONN_04" device="LOCK" package3d_urn="urn:adsk.eagle:package:38089/1"/>
 </parts>
 <sheets>
 <sheet>
@@ -5970,23 +5970,23 @@ This footprint was designed to help hold the alignment of a through-hole compone
 <attribute name="NAME" x="64.008" y="71.882" size="1.778" layer="95" font="vector"/>
 <attribute name="VALUE" x="63.5" y="9.906" size="1.778" layer="96" font="vector" align="top-left"/>
 </instance>
-<instance part="J2" gate="G$1" x="10.16" y="63.5" smashed="yes">
+<instance part="IR_ARRAY" gate="G$1" x="10.16" y="63.5" smashed="yes">
 <attribute name="VALUE" x="10.16" y="48.514" size="1.778" layer="96" font="vector"/>
 <attribute name="NAME" x="10.16" y="76.708" size="1.778" layer="95" font="vector"/>
 </instance>
-<instance part="J3" gate="G$1" x="10.16" y="30.48" smashed="yes">
+<instance part="MOTOR_CONTROLLER" gate="G$1" x="10.16" y="30.48" smashed="yes">
 <attribute name="VALUE" x="10.16" y="10.414" size="1.778" layer="96" font="vector"/>
 <attribute name="NAME" x="10.16" y="46.228" size="1.778" layer="95" font="vector"/>
 </instance>
-<instance part="J4" gate="G$1" x="111.76" y="81.28" smashed="yes">
+<instance part="BLUETOOTH" gate="G$1" x="111.76" y="81.28" smashed="yes">
 <attribute name="VALUE" x="106.68" y="71.374" size="1.778" layer="96" font="vector"/>
 <attribute name="NAME" x="106.68" y="91.948" size="1.778" layer="95" font="vector"/>
 </instance>
-<instance part="J5" gate="G$1" x="111.76" y="55.88" smashed="yes">
+<instance part="MOTOR_0" gate="G$1" x="111.76" y="55.88" smashed="yes">
 <attribute name="VALUE" x="106.68" y="45.974" size="1.778" layer="96" font="vector"/>
 <attribute name="NAME" x="106.68" y="66.548" size="1.778" layer="95" font="vector"/>
 </instance>
-<instance part="J6" gate="G$1" x="111.76" y="27.94" smashed="yes">
+<instance part="MOTOR_1" gate="G$1" x="111.76" y="27.94" smashed="yes">
 <attribute name="VALUE" x="106.68" y="18.034" size="1.778" layer="96" font="vector"/>
 <attribute name="NAME" x="106.68" y="38.608" size="1.778" layer="95" font="vector"/>
 </instance>
@@ -5994,7 +5994,7 @@ This footprint was designed to help hold the alignment of a through-hole compone
 <attribute name="VALUE" x="10.16" y="84.074" size="1.778" layer="96" font="vector"/>
 <attribute name="NAME" x="10.16" y="94.488" size="1.778" layer="95" font="vector"/>
 </instance>
-<instance part="J7" gate="G$1" x="43.18" y="81.28" smashed="yes">
+<instance part="DIST" gate="G$1" x="43.18" y="81.28" smashed="yes">
 <attribute name="VALUE" x="38.1" y="73.914" size="1.778" layer="96" font="vector"/>
 <attribute name="NAME" x="38.1" y="89.408" size="1.778" layer="95" font="vector"/>
 </instance>
@@ -6009,19 +6009,19 @@ This footprint was designed to help hold the alignment of a through-hole compone
 <pinref part="J1" gate="G$1" pin="1"/>
 </segment>
 <segment>
-<pinref part="J3" gate="G$1" pin="2"/>
+<pinref part="MOTOR_CONTROLLER" gate="G$1" pin="2"/>
 <wire x1="20.32" y1="17.78" x2="25.4" y2="17.78" width="0.1524" layer="91"/>
 <label x="20.32" y="17.78" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="GND" class="0">
 <segment>
-<pinref part="J2" gate="G$1" pin="9"/>
+<pinref part="IR_ARRAY" gate="G$1" pin="9"/>
 <wire x1="20.32" y1="73.66" x2="25.4" y2="73.66" width="0.1524" layer="91"/>
 <label x="20.32" y="73.66" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="J3" gate="G$1" pin="12"/>
+<pinref part="MOTOR_CONTROLLER" gate="G$1" pin="12"/>
 <wire x1="20.32" y1="43.18" x2="25.4" y2="43.18" width="0.1524" layer="91"/>
 <label x="20.32" y="43.18" size="1.778" layer="95"/>
 </segment>
@@ -6031,34 +6031,34 @@ This footprint was designed to help hold the alignment of a through-hole compone
 <label x="55.88" y="35.56" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="J4" gate="G$1" pin="3"/>
+<pinref part="BLUETOOTH" gate="G$1" pin="3"/>
 <wire x1="116.84" y1="81.28" x2="121.92" y2="81.28" width="0.1524" layer="91"/>
 <label x="116.84" y="81.28" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="J5" gate="G$1" pin="4"/>
+<pinref part="MOTOR_0" gate="G$1" pin="4"/>
 <wire x1="116.84" y1="58.42" x2="121.92" y2="58.42" width="0.1524" layer="91"/>
 <label x="116.84" y="58.42" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="J6" gate="G$1" pin="4"/>
+<pinref part="MOTOR_1" gate="G$1" pin="4"/>
 <wire x1="116.84" y1="30.48" x2="121.92" y2="30.48" width="0.1524" layer="91"/>
 <label x="116.84" y="30.48" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="J7" gate="G$1" pin="1"/>
+<pinref part="DIST" gate="G$1" pin="1"/>
 <wire x1="48.26" y1="78.74" x2="53.34" y2="78.74" width="0.1524" layer="91"/>
 <label x="48.26" y="78.74" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="VCC" class="0">
 <segment>
-<pinref part="J2" gate="G$1" pin="8"/>
+<pinref part="IR_ARRAY" gate="G$1" pin="8"/>
 <wire x1="20.32" y1="71.12" x2="25.4" y2="71.12" width="0.1524" layer="91"/>
 <label x="20.32" y="71.12" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="J3" gate="G$1" pin="11"/>
+<pinref part="MOTOR_CONTROLLER" gate="G$1" pin="11"/>
 <wire x1="20.32" y1="40.64" x2="25.4" y2="40.64" width="0.1524" layer="91"/>
 <label x="20.32" y="40.64" size="1.778" layer="95"/>
 </segment>
@@ -6068,36 +6068,36 @@ This footprint was designed to help hold the alignment of a through-hole compone
 <label x="55.88" y="43.18" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="J4" gate="G$1" pin="2"/>
+<pinref part="BLUETOOTH" gate="G$1" pin="2"/>
 <wire x1="116.84" y1="78.74" x2="121.92" y2="78.74" width="0.1524" layer="91"/>
 <label x="116.84" y="78.74" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="J5" gate="G$1" pin="3"/>
+<pinref part="MOTOR_0" gate="G$1" pin="3"/>
 <wire x1="116.84" y1="55.88" x2="121.92" y2="55.88" width="0.1524" layer="91"/>
 <label x="116.84" y="55.88" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="J6" gate="G$1" pin="3"/>
+<pinref part="MOTOR_1" gate="G$1" pin="3"/>
 <wire x1="116.84" y1="27.94" x2="121.92" y2="27.94" width="0.1524" layer="91"/>
 <label x="116.84" y="27.94" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="J7" gate="G$1" pin="4"/>
+<pinref part="DIST" gate="G$1" pin="4"/>
 <wire x1="48.26" y1="86.36" x2="53.34" y2="86.36" width="0.1524" layer="91"/>
 <label x="48.26" y="86.36" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="CTRL" class="0">
 <segment>
-<pinref part="J2" gate="G$1" pin="7"/>
+<pinref part="IR_ARRAY" gate="G$1" pin="7"/>
 <wire x1="20.32" y1="68.58" x2="25.4" y2="68.58" width="0.1524" layer="91"/>
 <label x="20.32" y="68.58" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="IR1" class="0">
 <segment>
-<pinref part="J2" gate="G$1" pin="6"/>
+<pinref part="IR_ARRAY" gate="G$1" pin="6"/>
 <wire x1="20.32" y1="66.04" x2="25.4" y2="66.04" width="0.1524" layer="91"/>
 <label x="20.32" y="66.04" size="1.778" layer="95"/>
 </segment>
@@ -6109,7 +6109,7 @@ This footprint was designed to help hold the alignment of a through-hole compone
 </net>
 <net name="IR3" class="0">
 <segment>
-<pinref part="J2" gate="G$1" pin="5"/>
+<pinref part="IR_ARRAY" gate="G$1" pin="5"/>
 <wire x1="20.32" y1="63.5" x2="25.4" y2="63.5" width="0.1524" layer="91"/>
 <label x="20.32" y="63.5" size="1.778" layer="95"/>
 </segment>
@@ -6121,7 +6121,7 @@ This footprint was designed to help hold the alignment of a through-hole compone
 </net>
 <net name="IR5" class="0">
 <segment>
-<pinref part="J2" gate="G$1" pin="4"/>
+<pinref part="IR_ARRAY" gate="G$1" pin="4"/>
 <wire x1="20.32" y1="60.96" x2="25.4" y2="60.96" width="0.1524" layer="91"/>
 <label x="20.32" y="60.96" size="1.778" layer="95"/>
 </segment>
@@ -6133,7 +6133,7 @@ This footprint was designed to help hold the alignment of a through-hole compone
 </net>
 <net name="IR7" class="0">
 <segment>
-<pinref part="J2" gate="G$1" pin="3"/>
+<pinref part="IR_ARRAY" gate="G$1" pin="3"/>
 <wire x1="20.32" y1="58.42" x2="25.4" y2="58.42" width="0.1524" layer="91"/>
 <label x="20.32" y="58.42" size="1.778" layer="95"/>
 </segment>
@@ -6145,7 +6145,7 @@ This footprint was designed to help hold the alignment of a through-hole compone
 </net>
 <net name="IR9" class="0">
 <segment>
-<pinref part="J2" gate="G$1" pin="2"/>
+<pinref part="IR_ARRAY" gate="G$1" pin="2"/>
 <wire x1="20.32" y1="55.88" x2="25.4" y2="55.88" width="0.1524" layer="91"/>
 <label x="20.32" y="55.88" size="1.778" layer="95"/>
 </segment>
@@ -6157,7 +6157,7 @@ This footprint was designed to help hold the alignment of a through-hole compone
 </net>
 <net name="IR11" class="0">
 <segment>
-<pinref part="J2" gate="G$1" pin="1"/>
+<pinref part="IR_ARRAY" gate="G$1" pin="1"/>
 <wire x1="20.32" y1="53.34" x2="25.4" y2="53.34" width="0.1524" layer="91"/>
 <label x="20.32" y="53.34" size="1.778" layer="95"/>
 </segment>
@@ -6169,7 +6169,7 @@ This footprint was designed to help hold the alignment of a through-hole compone
 </net>
 <net name="MRX" class="0">
 <segment>
-<pinref part="J3" gate="G$1" pin="10"/>
+<pinref part="MOTOR_CONTROLLER" gate="G$1" pin="10"/>
 <wire x1="20.32" y1="38.1" x2="25.4" y2="38.1" width="0.1524" layer="91"/>
 <label x="20.32" y="38.1" size="1.778" layer="95"/>
 </segment>
@@ -6181,7 +6181,7 @@ This footprint was designed to help hold the alignment of a through-hole compone
 </net>
 <net name="MTX" class="0">
 <segment>
-<pinref part="J3" gate="G$1" pin="9"/>
+<pinref part="MOTOR_CONTROLLER" gate="G$1" pin="9"/>
 <wire x1="20.32" y1="35.56" x2="25.4" y2="35.56" width="0.1524" layer="91"/>
 <label x="20.32" y="35.56" size="1.778" layer="95"/>
 </segment>
@@ -6193,69 +6193,69 @@ This footprint was designed to help hold the alignment of a through-hole compone
 </net>
 <net name="RESET" class="0">
 <segment>
-<pinref part="J3" gate="G$1" pin="8"/>
+<pinref part="MOTOR_CONTROLLER" gate="G$1" pin="8"/>
 <wire x1="20.32" y1="33.02" x2="25.4" y2="33.02" width="0.1524" layer="91"/>
 <label x="20.32" y="33.02" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="ERR" class="0">
 <segment>
-<pinref part="J3" gate="G$1" pin="7"/>
+<pinref part="MOTOR_CONTROLLER" gate="G$1" pin="7"/>
 <wire x1="20.32" y1="30.48" x2="25.4" y2="30.48" width="0.1524" layer="91"/>
 <label x="20.32" y="30.48" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="M11" class="0">
 <segment>
-<pinref part="J3" gate="G$1" pin="6"/>
+<pinref part="MOTOR_CONTROLLER" gate="G$1" pin="6"/>
 <wire x1="20.32" y1="27.94" x2="25.4" y2="27.94" width="0.1524" layer="91"/>
 <label x="20.32" y="27.94" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="J6" gate="G$1" pin="5"/>
+<pinref part="MOTOR_1" gate="G$1" pin="5"/>
 <wire x1="116.84" y1="33.02" x2="121.92" y2="33.02" width="0.1524" layer="91"/>
 <label x="116.84" y="33.02" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="M10" class="0">
 <segment>
-<pinref part="J3" gate="G$1" pin="5"/>
+<pinref part="MOTOR_CONTROLLER" gate="G$1" pin="5"/>
 <wire x1="20.32" y1="25.4" x2="25.4" y2="25.4" width="0.1524" layer="91"/>
 <label x="20.32" y="25.4" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="J6" gate="G$1" pin="6"/>
+<pinref part="MOTOR_1" gate="G$1" pin="6"/>
 <wire x1="116.84" y1="35.56" x2="121.92" y2="35.56" width="0.1524" layer="91"/>
 <label x="116.84" y="35.56" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="M01" class="0">
 <segment>
-<pinref part="J3" gate="G$1" pin="4"/>
+<pinref part="MOTOR_CONTROLLER" gate="G$1" pin="4"/>
 <wire x1="20.32" y1="22.86" x2="25.4" y2="22.86" width="0.1524" layer="91"/>
 <label x="20.32" y="22.86" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="J5" gate="G$1" pin="5"/>
+<pinref part="MOTOR_0" gate="G$1" pin="5"/>
 <wire x1="116.84" y1="60.96" x2="121.92" y2="60.96" width="0.1524" layer="91"/>
 <label x="116.84" y="60.96" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="M00" class="0">
 <segment>
-<pinref part="J3" gate="G$1" pin="3"/>
+<pinref part="MOTOR_CONTROLLER" gate="G$1" pin="3"/>
 <wire x1="20.32" y1="20.32" x2="25.4" y2="20.32" width="0.1524" layer="91"/>
 <label x="20.32" y="20.32" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="J5" gate="G$1" pin="6"/>
+<pinref part="MOTOR_0" gate="G$1" pin="6"/>
 <wire x1="116.84" y1="63.5" x2="121.92" y2="63.5" width="0.1524" layer="91"/>
 <label x="116.84" y="63.5" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="VMOT" class="0">
 <segment>
-<pinref part="J3" gate="G$1" pin="1"/>
+<pinref part="MOTOR_CONTROLLER" gate="G$1" pin="1"/>
 <wire x1="20.32" y1="15.24" x2="25.4" y2="15.24" width="0.1524" layer="91"/>
 <label x="20.32" y="15.24" size="1.778" layer="95"/>
 </segment>
@@ -6267,14 +6267,14 @@ This footprint was designed to help hold the alignment of a through-hole compone
 </net>
 <net name="STATE" class="0">
 <segment>
-<pinref part="J4" gate="G$1" pin="6"/>
+<pinref part="BLUETOOTH" gate="G$1" pin="6"/>
 <wire x1="116.84" y1="88.9" x2="121.92" y2="88.9" width="0.1524" layer="91"/>
 <label x="116.84" y="88.9" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="BRX" class="0">
 <segment>
-<pinref part="J4" gate="G$1" pin="5"/>
+<pinref part="BLUETOOTH" gate="G$1" pin="5"/>
 <wire x1="116.84" y1="86.36" x2="121.92" y2="86.36" width="0.1524" layer="91"/>
 <label x="116.84" y="86.36" size="1.778" layer="95"/>
 </segment>
@@ -6286,7 +6286,7 @@ This footprint was designed to help hold the alignment of a through-hole compone
 </net>
 <net name="BTX" class="0">
 <segment>
-<pinref part="J4" gate="G$1" pin="4"/>
+<pinref part="BLUETOOTH" gate="G$1" pin="4"/>
 <wire x1="116.84" y1="83.82" x2="121.92" y2="83.82" width="0.1524" layer="91"/>
 <label x="116.84" y="83.82" size="1.778" layer="95"/>
 </segment>
@@ -6298,14 +6298,14 @@ This footprint was designed to help hold the alignment of a through-hole compone
 </net>
 <net name="EN" class="0">
 <segment>
-<pinref part="J4" gate="G$1" pin="1"/>
+<pinref part="BLUETOOTH" gate="G$1" pin="1"/>
 <wire x1="116.84" y1="76.2" x2="121.92" y2="76.2" width="0.1524" layer="91"/>
 <label x="116.84" y="76.2" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="0A" class="0">
 <segment>
-<pinref part="J5" gate="G$1" pin="2"/>
+<pinref part="MOTOR_0" gate="G$1" pin="2"/>
 <wire x1="116.84" y1="53.34" x2="121.92" y2="53.34" width="0.1524" layer="91"/>
 <label x="116.84" y="53.34" size="1.778" layer="95"/>
 </segment>
@@ -6317,7 +6317,7 @@ This footprint was designed to help hold the alignment of a through-hole compone
 </net>
 <net name="0B" class="0">
 <segment>
-<pinref part="J5" gate="G$1" pin="1"/>
+<pinref part="MOTOR_0" gate="G$1" pin="1"/>
 <wire x1="116.84" y1="50.8" x2="121.92" y2="50.8" width="0.1524" layer="91"/>
 <label x="116.84" y="50.8" size="1.778" layer="95"/>
 </segment>
@@ -6329,7 +6329,7 @@ This footprint was designed to help hold the alignment of a through-hole compone
 </net>
 <net name="1A" class="0">
 <segment>
-<pinref part="J6" gate="G$1" pin="2"/>
+<pinref part="MOTOR_1" gate="G$1" pin="2"/>
 <wire x1="116.84" y1="25.4" x2="121.92" y2="25.4" width="0.1524" layer="91"/>
 <label x="116.84" y="25.4" size="1.778" layer="95"/>
 </segment>
@@ -6341,7 +6341,7 @@ This footprint was designed to help hold the alignment of a through-hole compone
 </net>
 <net name="1B" class="0">
 <segment>
-<pinref part="J6" gate="G$1" pin="1"/>
+<pinref part="MOTOR_1" gate="G$1" pin="1"/>
 <wire x1="116.84" y1="22.86" x2="121.92" y2="22.86" width="0.1524" layer="91"/>
 <label x="116.84" y="22.86" size="1.778" layer="95"/>
 </segment>
@@ -6353,7 +6353,7 @@ This footprint was designed to help hold the alignment of a through-hole compone
 </net>
 <net name="TRIG" class="0">
 <segment>
-<pinref part="J7" gate="G$1" pin="3"/>
+<pinref part="DIST" gate="G$1" pin="3"/>
 <wire x1="48.26" y1="83.82" x2="53.34" y2="83.82" width="0.1524" layer="91"/>
 <label x="48.26" y="83.82" size="1.778" layer="95"/>
 </segment>
@@ -6365,7 +6365,7 @@ This footprint was designed to help hold the alignment of a through-hole compone
 </net>
 <net name="ECHO" class="0">
 <segment>
-<pinref part="J7" gate="G$1" pin="2"/>
+<pinref part="DIST" gate="G$1" pin="2"/>
 <wire x1="48.26" y1="81.28" x2="53.34" y2="81.28" width="0.1524" layer="91"/>
 <label x="48.26" y="81.28" size="1.778" layer="95"/>
 </segment>

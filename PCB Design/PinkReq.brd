@@ -976,23 +976,23 @@ design rules under a new name.</description>
 <element name="B1" library="SparkFun-Boards" library_urn="urn:adsk.eagle:library:509" package="UNO_R3_SHIELD_ICSP_NOLABELS" package3d_urn="urn:adsk.eagle:package:37336/1" value="ARDUINO_UNO_R3_SHIELD_ICSP-NO_LABELS" x="26.67" y="30.48" smashed="yes">
 <attribute name="VALUE" x="26.67" y="-0.508" size="0.6096" layer="27" font="vector" ratio="20" align="top-center"/>
 </element>
-<element name="J2" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" package="1X09_LOCK" package3d_urn="urn:adsk.eagle:package:38154/1" value="" x="44.45" y="54.61" smashed="yes" rot="R270">
+<element name="IR_ARRAY" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" package="1X09_LOCK" package3d_urn="urn:adsk.eagle:package:38154/1" value="" x="44.45" y="54.61" smashed="yes" rot="R270">
 <attribute name="NAME" x="42.037" y="55.88" size="0.6096" layer="25" font="vector" ratio="20" rot="R270"/>
 <attribute name="VALUE" x="42.418" y="55.88" size="0.6096" layer="27" font="vector" ratio="20" rot="R270"/>
 </element>
-<element name="J3" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" package="1X12_LOCK" package3d_urn="urn:adsk.eagle:package:38171/1" value="" x="29.21" y="48.26" smashed="yes" rot="R270">
+<element name="MOTOR_CONTROLLER" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" package="1X12_LOCK" package3d_urn="urn:adsk.eagle:package:38171/1" value="" x="29.21" y="48.26" smashed="yes" rot="R270">
 <attribute name="NAME" x="27.813" y="48.26" size="0.6096" layer="25" font="vector" ratio="20" rot="R90"/>
 <attribute name="VALUE" x="27.178" y="49.53" size="0.6096" layer="27" font="vector" ratio="20" rot="R270"/>
 </element>
-<element name="J4" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" package="1X06_FEMALE_LOCK.010" package3d_urn="urn:adsk.eagle:package:38124/1" value="" x="7.366" y="63.627" smashed="yes" rot="R270">
+<element name="BLUETOOTH" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" package="1X06_FEMALE_LOCK.010" package3d_urn="urn:adsk.eagle:package:38124/1" value="" x="7.366" y="63.627" smashed="yes" rot="R270">
 <attribute name="NAME" x="5.08" y="64.77" size="0.6096" layer="25" font="vector" ratio="20" rot="R270"/>
 <attribute name="VALUE" x="5.207" y="64.77" size="0.6096" layer="27" font="vector" ratio="20" rot="R270"/>
 </element>
-<element name="J5" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" package="1X06_FEMALE_LOCK.010" package3d_urn="urn:adsk.eagle:package:38124/1" value="" x="18.034" y="47.752" smashed="yes" rot="R90" grouprefs="M0">
+<element name="MOTOR_0" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" package="1X06_FEMALE_LOCK.010" package3d_urn="urn:adsk.eagle:package:38124/1" value="" x="18.034" y="47.752" smashed="yes" rot="R90" grouprefs="M0">
 <attribute name="NAME" x="20.32" y="46.609" size="0.6096" layer="25" font="vector" ratio="20" rot="R90"/>
 <attribute name="VALUE" x="20.193" y="46.609" size="0.6096" layer="27" font="vector" ratio="20" rot="R90"/>
 </element>
-<element name="J6" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" package="1X06_FEMALE_LOCK.010" package3d_urn="urn:adsk.eagle:package:38124/1" value="" x="18.034" y="31.242" smashed="yes" rot="R90" grouprefs="M1">
+<element name="MOTOR_1" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" package="1X06_FEMALE_LOCK.010" package3d_urn="urn:adsk.eagle:package:38124/1" value="" x="18.034" y="31.242" smashed="yes" rot="R90" grouprefs="M1">
 <attribute name="NAME" x="20.32" y="30.099" size="0.6096" layer="25" font="vector" ratio="20" rot="R90"/>
 <attribute name="VALUE" x="20.193" y="30.099" size="0.6096" layer="27" font="vector" ratio="20" rot="R90"/>
 </element>
@@ -1001,7 +1001,7 @@ design rules under a new name.</description>
 <attribute name="SF_SKU" value="PRT-08432" x="34.29" y="60.96" size="2.54" layer="27" display="off"/>
 <attribute name="VALUE" x="33.02" y="62.23" size="0.6096" layer="27" font="vector" ratio="20"/>
 </element>
-<element name="J7" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" package="1X04_LOCK" package3d_urn="urn:adsk.eagle:package:38089/1" value="" x="18.034" y="23.622" smashed="yes" rot="R270" grouprefs="SR04">
+<element name="DIST" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" package="1X04_LOCK" package3d_urn="urn:adsk.eagle:package:38089/1" value="" x="18.034" y="23.622" smashed="yes" rot="R270" grouprefs="SR04">
 <attribute name="NAME" x="19.685" y="15.875" size="0.6096" layer="25" font="vector" ratio="20" rot="R270"/>
 <attribute name="PROD_ID" value="CONN-09696" x="18.034" y="23.622" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="VALUE" x="16.002" y="24.892" size="0.6096" layer="27" font="vector" ratio="20" rot="R270"/>
@@ -1009,7 +1009,7 @@ design rules under a new name.</description>
 </elements>
 <signals>
 <signal name="MGND">
-<contactref element="J3" pad="2"/>
+<contactref element="MOTOR_CONTROLLER" pad="2"/>
 <contactref element="J1" pad="1"/>
 <wire x1="34.29" y1="60.96" x2="34.3146125" y2="60.9353875" width="0.2032" layer="1"/>
 <wire x1="34.3146125" y1="60.9353875" x2="34.3146125" y2="56.774475" width="0.2032" layer="1"/>
@@ -1019,12 +1019,12 @@ design rules under a new name.</description>
 <wire x1="29.083" y1="45.72" x2="28.067" y2="45.72" width="0.2032" layer="1"/>
 </signal>
 <signal name="GND">
-<contactref element="J2" pad="9"/>
-<contactref element="J3" pad="12"/>
+<contactref element="IR_ARRAY" pad="9"/>
+<contactref element="MOTOR_CONTROLLER" pad="12"/>
 <contactref element="B1" pad="GND@2"/>
-<contactref element="J4" pad="3"/>
-<contactref element="J5" pad="4"/>
-<contactref element="J6" pad="4"/>
+<contactref element="BLUETOOTH" pad="3"/>
+<contactref element="MOTOR_0" pad="4"/>
+<contactref element="MOTOR_1" pad="4"/>
 <polygon width="0.2032" layer="1" isolate="0.3048" rank="2">
 <vertex x="0" y="2.54"/>
 <vertex x="0" y="62.23"/>
@@ -1036,15 +1036,15 @@ design rules under a new name.</description>
 <vertex x="50.8" y="0"/>
 <vertex x="2.54" y="0"/>
 </polygon>
-<contactref element="J7" pad="1"/>
+<contactref element="DIST" pad="1"/>
 </signal>
 <signal name="VCC">
-<contactref element="J2" pad="8"/>
-<contactref element="J3" pad="11"/>
+<contactref element="IR_ARRAY" pad="8"/>
+<contactref element="MOTOR_CONTROLLER" pad="11"/>
 <contactref element="B1" pad="5V"/>
-<contactref element="J4" pad="2"/>
-<contactref element="J5" pad="3"/>
-<contactref element="J6" pad="3"/>
+<contactref element="BLUETOOTH" pad="2"/>
+<contactref element="MOTOR_0" pad="3"/>
+<contactref element="MOTOR_1" pad="3"/>
 <polygon width="0.2032" layer="16" isolate="0.3048">
 <vertex x="0" y="2.54"/>
 <vertex x="0" y="62.23"/>
@@ -1056,76 +1056,76 @@ design rules under a new name.</description>
 <vertex x="50.8" y="0"/>
 <vertex x="2.54" y="0"/>
 </polygon>
-<contactref element="J7" pad="4"/>
+<contactref element="DIST" pad="4"/>
 </signal>
 <signal name="CTRL">
-<contactref element="J2" pad="7"/>
+<contactref element="IR_ARRAY" pad="7"/>
 </signal>
 <signal name="IR1">
-<contactref element="J2" pad="6"/>
+<contactref element="IR_ARRAY" pad="6"/>
 <contactref element="B1" pad="A0"/>
 <wire x1="44.323" y1="41.91" x2="50.8" y2="41.91" width="0.2032" layer="1"/>
 </signal>
 <signal name="IR3">
-<contactref element="J2" pad="5"/>
+<contactref element="IR_ARRAY" pad="5"/>
 <contactref element="B1" pad="A1"/>
 <wire x1="44.577" y1="44.45" x2="50.8" y2="44.45" width="0.2032" layer="1"/>
 </signal>
 <signal name="IR5">
-<contactref element="J2" pad="4"/>
+<contactref element="IR_ARRAY" pad="4"/>
 <contactref element="B1" pad="A2"/>
 <wire x1="44.323" y1="46.99" x2="50.8" y2="46.99" width="0.2032" layer="1"/>
 </signal>
 <signal name="IR7">
-<contactref element="J2" pad="3"/>
+<contactref element="IR_ARRAY" pad="3"/>
 <contactref element="B1" pad="A3"/>
 <wire x1="44.577" y1="49.53" x2="50.8" y2="49.53" width="0.2032" layer="1"/>
 </signal>
 <signal name="IR9">
-<contactref element="J2" pad="2"/>
+<contactref element="IR_ARRAY" pad="2"/>
 <contactref element="B1" pad="A4"/>
 <wire x1="44.323" y1="52.07" x2="50.8" y2="52.07" width="0.2032" layer="1"/>
 </signal>
 <signal name="IR11">
-<contactref element="J2" pad="1"/>
+<contactref element="IR_ARRAY" pad="1"/>
 <contactref element="B1" pad="A5"/>
 <wire x1="44.577" y1="54.61" x2="50.8" y2="54.61" width="0.2032" layer="1"/>
 </signal>
 <signal name="MRX">
-<contactref element="J3" pad="10"/>
+<contactref element="MOTOR_CONTROLLER" pad="10"/>
 <contactref element="B1" pad="D9"/>
 <wire x1="2.54" y1="30.226" x2="6.096" y2="26.67" width="0.2032" layer="1"/>
 <wire x1="27.813" y1="26.67" x2="29.083" y2="25.4" width="0.2032" layer="1"/>
 <wire x1="27.813" y1="26.67" x2="6.096" y2="26.67" width="0.2032" layer="1"/>
 </signal>
 <signal name="MTX">
-<contactref element="J3" pad="9"/>
+<contactref element="MOTOR_CONTROLLER" pad="9"/>
 <contactref element="B1" pad="D8"/>
 <wire x1="28.85303125" y1="28.42396875" x2="6.88203125" y2="28.42396875" width="0.2032" layer="1"/>
 <wire x1="2.54" y1="32.766" x2="6.88203125" y2="28.42396875" width="0.2032" layer="1"/>
 <wire x1="29.337" y1="27.94" x2="28.85303125" y2="28.42396875" width="0.2032" layer="1"/>
 </signal>
 <signal name="RESET">
-<contactref element="J3" pad="8"/>
+<contactref element="MOTOR_CONTROLLER" pad="8"/>
 </signal>
 <signal name="ERR">
-<contactref element="J3" pad="7"/>
+<contactref element="MOTOR_CONTROLLER" pad="7"/>
 </signal>
 <signal name="M11">
-<contactref element="J3" pad="6"/>
-<contactref element="J6" pad="5"/>
+<contactref element="MOTOR_CONTROLLER" pad="6"/>
+<contactref element="MOTOR_1" pad="5"/>
 <wire x1="29.083" y1="35.56" x2="23.622" y2="35.56" width="0.2032" layer="1"/>
 <wire x1="23.622" y1="35.56" x2="17.78" y2="41.402" width="0.2032" layer="1"/>
 </signal>
 <signal name="M10">
-<contactref element="J3" pad="5"/>
-<contactref element="J6" pad="6"/>
+<contactref element="MOTOR_CONTROLLER" pad="5"/>
+<contactref element="MOTOR_1" pad="6"/>
 <wire x1="29.337" y1="38.1" x2="24.13" y2="38.1" width="0.2032" layer="1"/>
 <wire x1="24.13" y1="38.1" x2="18.288" y2="43.942" width="0.2032" layer="1"/>
 </signal>
 <signal name="M01">
-<contactref element="J3" pad="4"/>
-<contactref element="J5" pad="5"/>
+<contactref element="MOTOR_CONTROLLER" pad="4"/>
+<contactref element="MOTOR_0" pad="5"/>
 <wire x1="27.813" y1="40.64" x2="27.813" y2="42.291" width="0.2032" layer="1"/>
 <wire x1="27.813" y1="42.291" x2="19.685" y2="50.419" width="0.2032" layer="1" grouprefs="M0"/>
 <wire x1="19.685" y1="56.007" x2="17.78" y2="57.912" width="0.2032" layer="1" grouprefs="M0"/>
@@ -1133,74 +1133,74 @@ design rules under a new name.</description>
 <wire x1="29.083" y1="40.64" x2="27.813" y2="40.64" width="0.2032" layer="1"/>
 </signal>
 <signal name="M00">
-<contactref element="J3" pad="3"/>
-<contactref element="J5" pad="6"/>
+<contactref element="MOTOR_CONTROLLER" pad="3"/>
+<contactref element="MOTOR_0" pad="6"/>
 <wire x1="28.067" y1="43.18" x2="20.574" y2="50.673" width="0.2032" layer="1"/>
 <wire x1="18.288" y1="60.452" x2="20.574" y2="58.166" width="0.2032" layer="1" grouprefs="M0"/>
 <wire x1="20.574" y1="58.166" x2="20.574" y2="50.673" width="0.2032" layer="1"/>
 <wire x1="29.337" y1="43.18" x2="28.067" y2="43.18" width="0.2032" layer="1"/>
 </signal>
 <signal name="VMOT">
-<contactref element="J3" pad="1"/>
+<contactref element="MOTOR_CONTROLLER" pad="1"/>
 <contactref element="J1" pad="2"/>
 <wire x1="29.337" y1="48.26" x2="39.29" y2="58.467" width="0.2032" layer="16"/>
 <wire x1="39.29" y1="58.467" x2="39.29" y2="60.96" width="0.2032" layer="1"/>
 <via x="39.29" y="58.467" extent="1-16" drill="0.508"/>
 </signal>
 <signal name="STATE">
-<contactref element="J4" pad="6"/>
+<contactref element="BLUETOOTH" pad="6"/>
 </signal>
 <signal name="BRX">
-<contactref element="J4" pad="5"/>
+<contactref element="BLUETOOTH" pad="5"/>
 <contactref element="B1" pad="TX"/>
 <wire x1="2.54" y1="52.07" x2="3.81" y2="53.34" width="0.2032" layer="1"/>
 <wire x1="3.81" y1="53.34" x2="3.937" y2="53.467" width="0.2032" layer="1"/>
 <wire x1="3.937" y1="53.467" x2="7.62" y2="53.467" width="0.2032" layer="1"/>
 </signal>
 <signal name="BTX">
-<contactref element="J4" pad="4"/>
+<contactref element="BLUETOOTH" pad="4"/>
 <contactref element="B1" pad="RX"/>
 <wire x1="2.54" y1="54.61" x2="3.937" y2="56.007" width="0.2032" layer="1"/>
 <wire x1="3.937" y1="56.007" x2="7.112" y2="56.007" width="0.2032" layer="1"/>
 </signal>
 <signal name="EN">
-<contactref element="J4" pad="1"/>
+<contactref element="BLUETOOTH" pad="1"/>
 </signal>
 <signal name="0A">
-<contactref element="J5" pad="2"/>
+<contactref element="MOTOR_0" pad="2"/>
 <contactref element="B1" pad="D4"/>
 <wire x1="18.288" y1="50.292" x2="12.06363125" y2="50.292" width="0.2032" layer="1" grouprefs="M0"/>
 <wire x1="12.06363125" y1="50.292" x2="6.22163125" y2="44.45" width="0.2032" layer="1"/>
 <wire x1="6.22163125" y1="44.45" x2="2.54" y2="44.45" width="0.2032" layer="1"/>
 </signal>
 <signal name="0B">
-<contactref element="J5" pad="1"/>
+<contactref element="MOTOR_0" pad="1"/>
 <contactref element="B1" pad="D2"/>
 <wire x1="17.78" y1="47.752" x2="16.51" y2="46.482" width="0.2032" layer="16" grouprefs="M0"/>
 <wire x1="16.51" y1="46.482" x2="5.588" y2="46.482" width="0.2032" layer="16" grouprefs="M0"/>
 <wire x1="5.588" y1="46.482" x2="2.54" y2="49.53" width="0.2032" layer="16"/>
 </signal>
 <signal name="1A">
-<contactref element="J6" pad="2"/>
+<contactref element="MOTOR_1" pad="2"/>
 <contactref element="B1" pad="D5"/>
 <wire x1="2.54" y1="41.91" x2="10.668" y2="33.782" width="0.2032" layer="1"/>
 <wire x1="18.288" y1="33.782" x2="10.668" y2="33.782" width="0.2032" layer="1"/>
 </signal>
 <signal name="1B">
-<contactref element="J6" pad="1"/>
+<contactref element="MOTOR_1" pad="1"/>
 <contactref element="B1" pad="D3"/>
 <wire x1="17.78" y1="31.242" x2="16.4084" y2="32.6136" width="0.2032" layer="16"/>
 <wire x1="16.4084" y1="33.1216" x2="2.54" y2="46.99" width="0.2032" layer="16"/>
 <wire x1="16.4084" y1="33.1216" x2="16.4084" y2="32.6136" width="0.2032" layer="16"/>
 </signal>
 <signal name="TRIG">
-<contactref element="J7" pad="3"/>
+<contactref element="DIST" pad="3"/>
 <contactref element="B1" pad="D12"/>
 <wire x1="6.604" y1="18.542" x2="2.54" y2="22.606" width="0.2032" layer="1"/>
 <wire x1="18.161" y1="18.542" x2="6.604" y2="18.542" width="0.2032" layer="1"/>
 </signal>
 <signal name="ECHO">
-<contactref element="J7" pad="2"/>
+<contactref element="DIST" pad="2"/>
 <contactref element="B1" pad="D11"/>
 <wire x1="17.907" y1="21.082" x2="6.604" y2="21.082" width="0.2032" layer="1"/>
 <wire x1="6.604" y1="21.082" x2="2.54" y2="25.146" width="0.2032" layer="1"/>
