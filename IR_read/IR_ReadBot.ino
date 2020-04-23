@@ -4,8 +4,8 @@
 //Bot runs at max speed unless object is detected, when object is detect bot stops
 //If bot runs off course appropriate motor is reduced to get back on track
 
-#define KP 0.2
-#define KD 5
+#define KP 0.01
+#define KD 0.08
 
 QTRSensors qtr;
 
@@ -154,28 +154,35 @@ void loop()
   //leftMP = steerLeft(mP,position);
 
   //Control position
-  int error = position - 2500;
-  int speed = KP*error + KD*(error - lastLineErr);
-  lastLineErr = error;
-  int leftMP = mPdes + speed;
-  int rightMP = mPdes - speed;
-  if (leftMP > 255)
+  if (mP != 0)
   {
-    leftMP = 255;
+    int error = position - 2500;
+    int speed = KP*error + KD*(error - lastLineErr);
+    lastLineErr = error;
+    leftMP = round(mP - speed);
+    rightMP = round(mP + speed);
+    if (leftMP > 255)
+    {
+      leftMP = 255;
+    }
+    if (rightMP > 255)
+    {
+      rightMP = 255;
+    }
+    if (leftMP < -255)
+    {
+      leftMP = -255;
+    }
+    if (rightMP < -255)
+    {
+      rightMP = -255;
+    }
   }
-  if (rightMP > 255)
+  else
   {
-    rightMP = 255;
+    rightMP = 0;
+    leftMP = 0;
   }
-  if (leftMP < -255)
-  {
-    leftMP = -255;
-  }
-  if (rightMP < -255)
-  {
-    rightMP = -255;
-  }
-    
   //Apply action to motors
   rightMotor(-rightMP);
   leftMotor(leftMP);
