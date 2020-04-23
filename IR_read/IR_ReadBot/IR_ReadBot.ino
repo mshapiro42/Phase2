@@ -4,6 +4,9 @@
 //Bot runs at max speed unless object is detected, when object is detect bot stops
 //If bot runs off course appropriate motor is reduced to get back on track
 
+#define KP 0.01
+#define KD 0.08
+
 QTRSensors qtr;
 
 //float getDistance();
@@ -28,17 +31,19 @@ const int BIN1 = 8;           //control pin 1 on the motor driver for the left m
 
 
 //distance variables
-//const int trigPin = 6;
-//const int echoPin = 5;
+const int trigPin = 4;
+const int echoPin = 3;
 
-int switchPin = 7;             //switch to turn the robot on and off
-
-//float distance = 0;            //variable to store the distance measured by the distance sensor
+float distance = 0;            //variable to store the distance measured by the distance sensor
 
 int rightMP = 0;               //variable for motor speed
 int leftMP = 0; 
-int mP = 0; 
-int Rec = 0;                    // variable for bluetooth communication            
+int mP = 0;
+int mPdes = 0; 
+int Rec = 0;                    // variable for bluetooth communication
+float Kp = 0.1;
+float Kd = 1;     
+int lastLineErr = 0;     
 
 void setup()
 {
@@ -50,12 +55,8 @@ void setup()
   delay(500);
   pinMode(13, OUTPUT);
 
-  //pinMode(trigPin, OUTPUT);       //this pin will send ultrasonic pulses out from the distance sensor
-  //pinMode(echoPin, INPUT);        //this pin will sense when the pulses reflect back to the distance sensor
-
-// Switch needs to be used when I'm using serial with computer instead of Bluetooth to read/debug IR sensor code
-  pinMode(switchPin, INPUT_PULLUP);   //set this as a pullup to sense whether the switch is flipped
-
+  pinMode(trigPin, OUTPUT);       //this pin will send ultrasonic pulses out from the distance sensor
+  pinMode(echoPin, INPUT);        //this pin will sense when the pulses reflect back to the distance sensor
 
   //set the motor contro pins as outputs
   pinMode(AIN1, OUTPUT);
@@ -101,78 +102,108 @@ for (uint16_t i = 0; i < 400; i++)
 
 void loop()
 {
+  // Check for collisions
+  distance = getDistance();
+
+  // If a collision is detected, stop. Else, maintain speed
+  if(distance < 10)
+  {
+    mP = 0;
+    digitalWrite(13, HIGH);
+  }
+  else
+  {
+    mP = mPdes;
+    digitalWrite(13, LOW);
+  }
+
+  // Check for message from user
+  // If there is a message, adjust speed accordingly
   if (Serial.available()>0)
   {
     Rec = Serial.read();
     if(Rec == 's')
     {
-      mP = 0;
+      mPdes = 0;
+      mP = mPdes;
     }
     if(Rec == 'u')
     {
-      mP += 51;
+      mPdes += 51;
+      mP = mPdes;
     }
     if(Rec == 'd')
     {
-      mP -= 51;
+      mPdes -= 51;
+      mP = mPdes;
     }
-    //uint16_t position = qtr.readLineBlack(sensorValues);
-    //rightMP = steerRight(mP,position);
-    //leftMP = steerLeft(mP,position);
-    rightMP = mP; // This is only for testing bluetooth without using IR sensor, with IR sensor above two lines should be used
-    leftMP = mP;
-    rightMotor(-rightMP);
-    leftMotor(leftMP);
   }
-    
-  // Distance code below has been dismantled a bit, needs to be integrated with above when ready
-  //DETECT THE DISTANCE READ BY THE DISTANCE SENSOR
-  //  distance = getDistance();
-  //                       
-  //if the switch is off then stop (this isn't necessary with bluetooth controlling stopping)
-  //stop the motors
-  //DETECT THE DISTANCE READ BY THE DISTANCE SENSOR
-  //  distance = getDistance();
-  //if the on switch is flipped (this isn't necessary with bluetooth controlling going)
-  //
-  //    if(distance < 10){                //if an object is detected
-  //
-  //      //stop for a moment
-  //      rightMotor(0);
-  //      leftMotor(0);
-  //    }else{                         //if no obstacle is detected drive forward
-  //
-  //      rightMotor(-rightMP);
-  //      leftMotor(leftMP);
-  //    }
-  // read calibrated sensor values and obtain a measure of the line position
-  // from 0 to 5000 (for a white line, use readLineWhite() instead)
 
-// Below is for debugging IR sensor
+  // Get position from IR sensor
+  uint16_t position = qtr.readLineBlack(sensorValues);
+  // Below is for debugging IR sensor
   /*for (uint8_t i = 0; i < SensorCount; i++)
+    {
+      Serial.print(sensorValues[i]);
+      Serial.print('\t');
+    }
+    Serial.println(position);*/
+    
+  //Use position to determine appropriate compensation
+  //rightMP = steerRight(mP,position);
+  //leftMP = steerLeft(mP,position);
+
+  //Control position
+  if (mP != 0)
   {
-    Serial.print(sensorValues[i]);
-    Serial.print('\t');
+    int error = position - 2500;
+    int speed = KP*error + KD*(error - lastLineErr);
+    lastLineErr = error;
+    leftMP = round(mP - speed);
+    rightMP = round(mP + speed);
+    if (leftMP > 255)
+    {
+      leftMP = 255;
+    }
+    if (rightMP > 255)
+    {
+      rightMP = 255;
+    }
+    if (leftMP < -255)
+    {
+      leftMP = -255;
+    }
+    if (rightMP < -255)
+    {
+      rightMP = -255;
+    }
   }
-  Serial.println(position);*/
+  else
+  {
+    rightMP = 0;
+    leftMP = 0;
+  }
+  //Apply action to motors
+  rightMotor(-rightMP);
+  leftMotor(leftMP);
 }
 
 /**********************************************************************************/
 int steerRight(int mP, uint16_t position)
 {
-  if (position < 1400)
+  if (position < 2200)// was 1400
   {
     rightMP = 0;
   }
-  if (position > 1400 && position < 1800)
+  /*if (position > 1400 && position < 1800)
   {
     rightMP = round((1/3)*mP); 
   }
   if (position > 1800 && position < 2200)
   {
     rightMP = round((1/3)*mP);
-  }
-  if (position > 2200)
+  }*/
+  if (position >= 2200)
   {
     rightMP = mP;
   }
@@ -182,19 +213,19 @@ int steerRight(int mP, uint16_t position)
 /*********************************************************************************/
 int steerLeft(int Mp, uint16_t position)
 {
-  if (position  < 2400)
+  if (position  <= 2600)
   {
     leftMP = mP;
   }
-  if (position > 2400 && position < 2850)
+  /*if (position > 2400 && position < 2850)
   {
     leftMP = round((1/3)*mP);;
   }
   if (position > 2850 && position < 3300)
   {
     leftMP = round((1/3)*mP); 
-  }
-  if (position > 3300)
+  }*/
+  if (position > 2600) // was 3300
   {
     leftMP = 0;
   }
@@ -245,20 +276,20 @@ void leftMotor(int motorSpeed)                        //function for driving the
 
 /********************************************************************************/
 //RETURNS THE DISTANCE MEASURED BY THE HC-SR04 DISTANCE SENSOR
-//float getDistance()
-//{
-//  float echoTime;                   //variable to store the time it takes for a ping to bounce off an object
-//  float calcualtedDistance;         //variable to store the distance calculated from the echo time
-//
-//  //send out an ultrasonic pulse that's 10ms long
-//  digitalWrite(trigPin, HIGH);
-//  delayMicroseconds(10); 
-//  digitalWrite(trigPin, LOW);
-//
-//  echoTime = pulseIn(echoPin, HIGH);      //use the pulsein command to see how long it takes for the
-//                                          //pulse to bounce back to the sensor
-//
-//  calcualtedDistance = echoTime / 148.0;  //calculate the distance of the object that reflected the pulse (half the bounce time multiplied by the speed of sound)
-//
-//  return calcualtedDistance;              //send back the distance that was calculated
-//}
+float getDistance()
+{
+  float echoTime;                   //variable to store the time it takes for a ping to bounce off an object
+  float calcualtedDistance;         //variable to store the distance calculated from the echo time
+
+  //send out an ultrasonic pulse that's 10ms long
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10); 
+  digitalWrite(trigPin, LOW);
+
+  echoTime = pulseIn(echoPin, HIGH);      //use the pulsein command to see how long it takes for the
+                                          //pulse to bounce back to the sensor
+
+  calcualtedDistance = echoTime / 148.0;  //calculate the distance of the object that reflected the pulse (half the bounce time multiplied by the speed of sound)
+
+  return calcualtedDistance;              //send back the distance that was calculated
+}
