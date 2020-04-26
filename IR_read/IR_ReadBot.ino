@@ -4,9 +4,6 @@
 //Bot runs at max speed unless object is detected, when object is detect bot stops
 //If bot runs off course appropriate motor is reduced to get back on track
 
-#define KP 0.01
-#define KD 0.08
-
 QTRSensors qtr;
 
 //float getDistance();
@@ -22,11 +19,11 @@ uint16_t sensorValues[SensorCount];
 //the right motor will be controlled by the motor A pins on the motor driver
 const int AIN1 = 6;           //control pin 1 on the motor driver for the right motor
 const int AIN2 = 12;            //control pin 2 on the motor driver for the right motor
-const int PWMA = 11;            //speed control pin on the motor driver for the right motor
+const int PWMA = 11;     //try making 9       //speed control pin on the motor driver for the right motor
 
 //the left motor will be controlled by the motor B pins on the motor driver
 const int PWMB = 10;           //speed control pin on the motor driver for the left motor
-const int BIN2 = 9;           //control pin 2 on the motor driver for the left motor
+const int BIN2 = 9;   //try making 11        //control pin 2 on the motor driver for the left motor
 const int BIN1 = 8;           //control pin 1 on the motor driver for the left motor
 
 
@@ -41,8 +38,10 @@ int leftMP = 0;
 int mP = 0;
 int mPdes = 0; 
 int Rec = 0;                    // variable for bluetooth communication
-float Kp = 0.1;
-float Kd = 1;     
+float Kp = 0.03;
+float Kd = 0;  
+float Ki = 0;
+float Integrate = 0;   
 int lastLineErr = 0;     
 
 void setup()
@@ -103,10 +102,10 @@ for (uint16_t i = 0; i < 400; i++)
 void loop()
 {
   // Check for collisions
-  distance = getDistance();
+  //distance = getDistance();
 
   // If a collision is detected, stop. Else, maintain speed
-  if(distance < 10)
+  /*if(distance < 10)
   {
     mP = 0;
     digitalWrite(13, HIGH);
@@ -115,7 +114,7 @@ void loop()
   {
     mP = mPdes;
     digitalWrite(13, LOW);
-  }
+  }*/
 
   // Check for message from user
   // If there is a message, adjust speed accordingly
@@ -138,7 +137,7 @@ void loop()
       mP = mPdes;
     }
   }
-
+  
   // Get position from IR sensor
   uint16_t position = qtr.readLineBlack(sensorValues);
   // Below is for debugging IR sensor
@@ -156,11 +155,12 @@ void loop()
   //Control position
   if (mP != 0)
   {
-    int error = position - 2500;
-    int speed = KP*error + KD*(error - lastLineErr);
+    float error = (int)position - 2500;
+    Integrate = Integrate + error;
+    float speed = Kp*error + Ki*Integrate + Kd*(error - lastLineErr);
     lastLineErr = error;
-    leftMP = round(mP - speed);
-    rightMP = round(mP + speed);
+    leftMP = (int)(mP - speed);
+    rightMP = (int)(mP + speed);
     if (leftMP > 255)
     {
       leftMP = 255;
