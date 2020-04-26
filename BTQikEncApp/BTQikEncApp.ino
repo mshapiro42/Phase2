@@ -35,7 +35,7 @@
 #define leftEncoderA 4
 #define rightEncoderA 5
 //#define GAIN .87
-PololuQik2s9v1 qik(10,11,12);
+PololuQik2s9v1 qik(10, 11, 12);
 int systemState;
 int setA = 0;
 int setB = 0;
@@ -53,17 +53,17 @@ void setup()
   pinMode(leftEncoderB, INPUT);
   pinMode(rightEncoderA, INPUT);
   pinMode(rightEncoderB, INPUT);
-  
+
   Serial1.begin(9600);
   Serial1.println("Initializing");
   Serial.println("Initializing");
-  
+
   qik.init();
   delay(1000);
 
 
-  attachInterrupt(digitalPinToInterrupt(leftEncoderB),leftEnc,RISING);
-  attachInterrupt(digitalPinToInterrupt(rightEncoderB),rightEnc,RISING);
+  attachInterrupt(digitalPinToInterrupt(leftEncoderB), leftEnc, RISING);
+  attachInterrupt(digitalPinToInterrupt(rightEncoderB), rightEnc, RISING);
 
   systemState = false;
   Serial1.println("Ready");
@@ -77,13 +77,13 @@ void loop()
   if (Serial1.available()) {
     readBT();
   }
-  if (systemState){
+  if (systemState) {
     qik.setSpeeds(setA, setB);
     getVel();
-    Serial1.print(setA);
-    Serial1.print(" ");
-    Serial1.println(setB);
-  } else{
+    //Serial1.print(setA);
+    //Serial1.print(" ");
+    //Serial1.println(setB);
+  } else {
     qik.setSpeeds(0, 0);
   }
   delay(100);
@@ -92,44 +92,33 @@ void loop()
 
 void readBT() {
   cmd2 = Serial1.read();
-  
-  if (cmd2 == 'p') {
-    systemState = !systemState;
-    if (systemState) {
-      //Serial1.println("Power on");
-    }
-    else {
-      //Serial1.println("Power off");      
+
+  switch (cmd2) {
+    case 's':
+      systemState = false;
+      break;
+    case 'g':
       setA = 0;
       setB = 0;
-    }
+      break;
+    case 'u':
+      setA += 10;
+      setB += GAIN * 10;
+      break;
+    case 'd':
+      setA -= 10;
+      setB -= GAIN * 10;
+      break;
   }
-  if (systemState && cmd2 != 'p') {
-    switch (cmd2) {
-      case 's':
-        setA = 100;
-        setB = GAIN*100;
-        //Serial1.println("Slow");
-        break;
-      case 'i':
-        setA = -100;
-        setB = -GAIN*100;
-        //Serial1.println("Reverse");
-        break;
-      case 'r':
-        Turn(-1, setA, setB);
-        //Serial1.println("Right Turn");
-        break;
-      case 'l':
-        Turn(1, setA, setB);
-        //Serial1.println("Left Turn");
-        break;         
-    }
-  }
+  if (setA > 255) setA = 255;
+  if (setA < -255) setA = -255;
+  if (setB > 255) setB = 255;
+  if (setB <-255) setB = -255;
 }
+
 ///////////////////////////////////
 void Turn(int dir, int setA, int setB) {
-  qik.setSpeeds(dir*255,-GAIN*dir*255);
+  qik.setSpeeds(dir * 255, -GAIN * dir * 255);
   delay(TURN_TIME);
   qik.setSpeeds(setA, setB);
 }
@@ -140,20 +129,20 @@ void getVel() {
   delay(10);
   int b1 = leftCount;
   int b2 = rightCount;
-  velocityL = ((b1-a1)/.01)*CPS_TO_MPH;
-  velocityR = ((b2-a2)/.01)*CPS_TO_MPH;
+  velocityL = ((b1 - a1) / .01) * CPS_TO_MPH;
+  velocityR = ((b2 - a2) / .01) * CPS_TO_MPH;
 }
 ///////////////////////////////////
-void leftEnc(){
-  if (digitalRead(leftEncoderA) == digitalRead(leftEncoderB)){
+void leftEnc() {
+  if (digitalRead(leftEncoderA) == digitalRead(leftEncoderB)) {
     leftCount++;
   } else {
     leftCount--;
   }
 }
 ///////////////////////////////////
-void rightEnc(){
-  if (digitalRead(rightEncoderA) == digitalRead(rightEncoderB)){
+void rightEnc() {
+  if (digitalRead(rightEncoderA) == digitalRead(rightEncoderB)) {
     rightCount++;
   } else {
     rightCount--;
