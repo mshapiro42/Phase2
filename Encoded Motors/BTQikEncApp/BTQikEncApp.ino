@@ -23,10 +23,11 @@
 // Contstants
 #define TURN_TIME 150
 #define GAIN .95
-#define kp 5
-#define kd 1
-#define ki 1
-
+#define kp 50
+#define kd 25
+#define ki 0
+#define deadbandA 20
+#define deadbandB 20
 // Conversions
 #define COUNTS_PER_REV 979.62
 #define IN_PER_REV 10.039
@@ -44,16 +45,10 @@
 
 PololuQik2s9v1 qik(10, 11, 12);
 int systemState;
-volatile int setA = 0;
-volatile  int setB = 0;
 byte cmd2;
 
 volatile unsigned long leftCount = 0;
 volatile unsigned long rightCount = 0;
-float velocityL = 0;
-float velocityR = 0;
-float curVelL = 0;
-float curVelR = 0;
 float desVelL = 0;
 float desVelR = 0;
 
@@ -89,40 +84,86 @@ void loop()
   // In loop() we continously check to see if a command has been
   //  received.
   if (Serial1.available()) {
-    desVel = readBT();
+    readBT();
   }
-  if (systemState) {
-    getVelL();
-    getVelR();
-    setVel();
-  } else {
-    setSpeeds(0, 0);
-  }
+  setVel();
   delay(100);
 }
 
 ///////////////////////////////////
-void setVel(){
-  int uL = computeU(curVelL, desVelL);
-  int uR = computeU(curVelR, desVelR);
+void setVel() {
+  float curVelL;
+  float curVelR;
+  static int setA = 0;
+  static int setB = 0;
+  curVelL = getVelL();
+  curVelR = getVelR();
+  float errL = desVelL - curVelL;
+  float errR = desVelR - curVelR;
+  while ((abs(errL) > .05 || abs(errR) > .05) && systemState) {
+    setA += computeU(errL);
+    setB += computeU(errR);
+    setA = applyLims(0, setA);
+    setB = applyLims(1, setB);
+    qik.setSpeeds(setA, setB);
+    delay(200);
+    if (Serial1.available()) {
+      readBT();
+    }
+    curVelL = getVelL();
+    curVelR = getVelR();
+    errL = desVelL - curVelL;
+    errR = desVelR - curVelR;
+    Serial1.print(desVelL);
+    Serial1.print(" ");
+    Serial1.print(curVelL);
+    Serial1.print(" ");
+    Serial1.print(setA);
+    Serial1.print(" ");
+    Serial1.print(desVelR);
+    Serial1.print(" ");
+    Serial1.print(curVelR);
+    Serial1.print(" ");
+    Serial1.println(setB);
+  }
+  if (systemState) qik.setSpeeds(setA, setB);
+}
+
+///////////////////////////////////
+int applyLims(int motor, int pwm) {
+  int deadband;
+  int dir = pwm / abs(pwm);
+  pwm = abs(pwm);
+  switch (motor) {
+    case 0:
+      deadband = deadbandA;
+      break;
+    case 1:
+      deadband = deadbandB;
+      break;
+  }
+  if (pwm < deadband) {
+    pwm = deadband;
+  } else if (pwm > 255) {
+    pwm = 255;
+  }
+  return dir * pwm;
 }
 ///////////////////////////////////
-void computeU(int curVel, int desVel){
+float computeU(float err) {
   volatile float errL = 0;
   volatile float errSum = 0;
   volatile unsigned long ti = 0;
   volatile unsigned long ti_1 = 0;
-  float err = desVel - curVel;
   float dE = err - errL;
   errSum += dE;
-  ti_1 = millis()/1000;
-  dt = ti_1 - ti;
+  ti_1 = millis() / 1000;
+  int dt = ti_1 - ti;
 
-  int u = floor(kp * err + kd * dE/dt + ki*errSum);
+  float u = kp * err + kd * (dE / dt) + ki * errSum;
   errL = err;
   ti = ti_1;
   return u;
-  
 }
 
 ///////////////////////////////////
@@ -131,24 +172,22 @@ float readBT() {
 
   switch (cmd2) {
     case 's':
+      desVelL = 0;
+      desVelR = 0;
       systemState = false;
       Serial1.println("Stop");
       break;
     case 'g':
       systemState = true;
       Serial1.println("Power On");
-      desVelL = 0.5;
-      desVelR = 0.5;
       break;
     case 'u':
-      desVelL += 0.5;
-      desVelR += 0.5;
-      Serial1.println(desVel);
+      desVelL += 0.25;
+      desVelR += 0.25;
       break;
     case 'd':
-      desVelL -= 0.5;
-      desVelR -= 0.5;
-      Serial1.println(desVel);
+      desVelL -= 0.25;
+      desVelR -= 0.25;
       break;
   }
   if (desVelL > 5) desVelL = 5;
@@ -160,22 +199,24 @@ float readBT() {
 ///////////////////////////////////
 void Turn(int dir, int setA, int setB) {
   qik.setSpeeds(dir * 255, -GAIN * dir * 255);
-  delay(TURN_TIME*abs(dir)/90);
+  delay(TURN_TIME * abs(dir) / 90);
   qik.setSpeeds(setA, setB);
 }
 ///////////////////////////////////
-void getVelL() {
+float getVelL() {
   int a1 = leftCount;
   delay(10);
   int b1 = leftCount;
-  curVelL = ((b1 - a1) / .01) * CPS_TO_MPH;
+  float curVelL = ((b1 - a1) / .01) * CPS_TO_MPH;
+  return curVelL;
 }
 ///////////////////////////////////
-void getVelR() {
+float getVelR() {
   int a2 = rightCount;
   delay(10);
   int b2 = rightCount;
-  curVelR = ((b2 - a2) / .01) * CPS_TO_MPH;
+  float curVelR = ((b2 - a2) / .01) * CPS_TO_MPH;
+  return curVelR;
 }
 ///////////////////////////////////
 void leftEnc() {
