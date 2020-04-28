@@ -56,8 +56,7 @@ volatile unsigned long leftCount = 0;
 volatile unsigned long rightCount = 0;
 float desVelL = 0;
 float desVelR = 0;
-int dir = 1;
-int dirL = 0;
+float dir = 0;
 
 
 void setup()
@@ -78,20 +77,19 @@ void setup()
   delay(1000);
 
   qtr.setTypeAnalog();
-  qtr.setSensorPins((const uint8_t[]) {A0, A1, A2, A3, A4, A5}, sensorCount);
+  qtr.setSensorPins((const uint8_t[]) {
+    A0, A1, A2, A3, A4, A5
+  }, sensorCount);
   qtr.setEmitterPin(6);
   digitalWrite(13, HIGH);
   for (uint16_t i = 0; i < 400; i++)
   {
-    dir = int(floor(i/20))%2 ;
-    if (~(dir == dirL)) {
-      if(dir) {
-        qik.setSpeeds(-deadbandA, deadbandB);
-      } else {
-        qik.setSpeeds(deadbandA, -deadbandB);
-      }
+    dir = (i/50) % 4 ;
+    if (dir == 0 || dir == 3) {
+      qik.setSpeeds(-deadbandA, deadbandB);
+    } else if (dir == 1 || dir == 2){
+      qik.setSpeeds(deadbandA, -deadbandB);
     }
-    dirL = dir;
     qtr.calibrate();
   }
   digitalWrite(13, LOW);
