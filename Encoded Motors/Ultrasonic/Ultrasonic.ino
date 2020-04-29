@@ -148,6 +148,14 @@ void setVel() {
     setB = applyLims(1, setB);
     qik.setSpeeds(setA, setB);
     delay(100);
+    if (getDistance() < 10) {   //If object is within 10 inches
+      appVelL = 0;              //Stop device
+      appVelR = 0;
+    }
+    else {
+      appVelL = desVelL;        //Otherwise, maintain desired speed
+      appVelR = desVelR;
+    }
     if (Serial1.available()) {
       readBT();
     }
