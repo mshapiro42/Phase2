@@ -1,3 +1,5 @@
+
+
 /*****************************************************************
   Serial1_Remote_Control.ino
   Write your Arduino's pins (analog or digital) or read from those
@@ -21,7 +23,10 @@
 #include <SoftwareSerial.h>
 #include <PololuQik.h>
 #include <QTRSensors.h>
+#include <SR04.h>
 // Contstants
+#define TRIG_PIN 9
+#define ECHO_PIN 8
 #define TURN_TIME 150
 #define sensorCount 6
 #define kp_v 50
@@ -49,6 +54,8 @@
 
 PololuQik2s9v1 qik(10, 11, 12);
 QTRSensors qtr;
+SR04 sr04 = SR04(ECHO_PIN,TRIG_PIN);
+
 int systemState;
 byte cmd2;
 
@@ -67,34 +74,29 @@ void setup()
   pinMode(leftEncoderB, INPUT);
   pinMode(rightEncoderA, INPUT);
   pinMode(rightEncoderB, INPUT);
-
+  pinMode(7, OUTPUT);
+  analogWrite(7,50);
   Serial1.begin(9600);
   Serial.begin(9600);
   Serial1.println("Initializing");
   Serial.println("Initializing");
-
-  qik.init();
-  delay(1000);
-
   qtr.setTypeAnalog();
   qtr.setSensorPins((const uint8_t[]) {
     A0, A1, A2, A3, A4, A5
   }, sensorCount);
   qtr.setEmitterPin(6);
-  digitalWrite(13, HIGH);
+  
+  qik.init();
+  delay(1000);
+
+  digitalWrite(13, HIGH);  
   for (uint16_t i = 0; i < 400; i++)
   {
-    dir = (i/50) % 4 ;
-    if (dir == 0 || dir == 3) {
-      qik.setSpeeds(-deadbandA, deadbandB);
-    } else if (dir == 1 || dir == 2){
-      qik.setSpeeds(deadbandA, -deadbandB);
-    }
     qtr.calibrate();
   }
   digitalWrite(13, LOW);
 
-  qik.setSpeeds(0, -0);
+  qik.setSpeeds(0, 0);
   attachInterrupt(digitalPinToInterrupt(leftEncoderB), leftEnc, RISING);
   attachInterrupt(digitalPinToInterrupt(rightEncoderB), rightEnc, RISING);
 
@@ -126,13 +128,13 @@ void setVel() {
   static int setB = 0;
   curVelL = getVelL();
   curVelR = getVelR();
-  float errP = 2500 - getPosition(&sensorValues[0]);
+  float errP = 2500 - (int)getPosition(&sensorValues[0]);
   float errL = desVelL - curVelL;
   float errR = desVelR - curVelR;
 
-  while ((errP > 500 || abs(errL) > .05 || abs(errR) > .05) && systemState) {
-    setA += computeUV(errL) - computeUP(errP);
-    setB += computeUV(errR) + computeUP(errP);
+  while ((abs(errP) > 500 || abs(errL) > .05 || abs(errR) > .05) && systemState) {
+    setA += computeUV(errL) + computeUP(errP);
+    setB += computeUV(errR) - computeUP(errP);
     setA = applyLims(0, setA);
     setB = applyLims(1, setB);
     qik.setSpeeds(setA, setB);
@@ -145,11 +147,14 @@ void setVel() {
     errL = desVelL - curVelL;
     errR = desVelR - curVelR;
     errP = 2500 - getPosition(&sensorValues[0]);
+    Serial1.print(setA);
+    Serial1.print(" ");
+    Serial1.println(setB);
   }
   if (systemState) qik.setSpeeds(setA, setB);
 }
 ///////////////////////////////////
-int getPosition(int* array_ptr) {
+uint16_t getPosition(int* array_ptr) {
   return qtr.readLineBlack(array_ptr);
 }
 ///////////////////////////////////
